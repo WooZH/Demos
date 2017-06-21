@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Piano</title>
+</head>
+<style>
+
+    body{
+        background: #ebebeb;
+    }
+    h1  {
+        text-align: center;
+    }
+    .piano {
+        width: 400px;
+        margin: 20px auto;
+        padding: 10px;
+        font-size: 0;
+        text-align: center;
+
+    }
+
+    .board {
+        display: inline-block;
+    }
+
+    .white-key {
+        float: left;
+        width: 40px;
+        height: 160px;
+        background: #fff;
+        border: 1px solid #333;
+        z-index: 1;
+    }
+
+    .white-key.active {
+        box-shadow: 0px -2px 3px #333 inset;
+        background: linear-gradient(#fff, #ddd);
+
+        transition: all 0.2s;
+    }
+
+    .black-key {
+        float: left;
+        border: 1px solid #333;
+        background: #333;
+        color: #fff;
+        height: 80px;
+        width: 20px;
+        margin-left: -11px;
+        margin-right: -11px;
+        z-index: 2;
+        position: relative;
+        box-shadow: 0px -8px 1px 1px #746f6f inset;
+    }
+
+    .black-key.active {
+        box-shadow: 0px -2px 1px 0px #746f6f inset;
+
+        background: #333333;
+        transition: all 0.2s;
+
+    }
+
+    .keyBoard {
+        text-align: center;
+        width: 400px;
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    .keyBoard span {
+        display: inline-block;
+        width: 36px;
+        height: 36px;
+        line-height: 36px;
+        border-radius: 4px;
+        border: 1px #333 solid;
+        box-shadow: 1px 1px 2px #333333;
+        background: #ffffff;
+    }
+
+    *{
+        user-select: none;
+    }
+</style>
+<body>
+<h1>Simple Piano</h1>
+
+<div class="piano">
+    <span class="board">
+        <a class="white-key" onmousedown="down(0)" onmouseup="over(0)" onmouseout="over(0)"></a>
+        <a class="black-key" onmousedown="down(1)" onmouseup="over(1)" onmouseout="over(1)"></a>
+        <a class="white-key" onmousedown="down(2)" onmouseup="over(2)" onmouseout="over(2)"></a>
+        <a class="black-key" onmousedown="down(3)" onmouseup="over(3)" onmouseout="over(3)"></a>
+        <a class="white-key" onmousedown="down(4)" onmouseup="over(4)" onmouseout="over(4)"></a>
+        <a class="white-key" onmousedown="down(5)" onmouseup="over(5)" onmouseout="over(5)"></a>
+        <a class="black-key" onmousedown="down(6)" onmouseup="over(6)" onmouseout="over(6)"></a>
+        <a class="white-key" onmousedown="down(7)" onmouseup="over(7)" onmouseout="over(7)"></a>
+        <a class="black-key" onmousedown="down(8)" onmouseup="over(8)" onmouseout="over(8)"></a>
+        <a class="white-key" onmousedown="down(9)" onmouseup="over(9)" onmouseout="over(9)"></a>
+        <a class="black-key" onmousedown="down(10)" onmouseup="over(10)" onmouseout="over(10)"></a>
+        <a class="white-key" onmousedown="down(11)" onmouseup="over(11)" onmouseout="over(11)"></a>
+    </span>
+</div>
+
+<div class="keyBoard">
+    <span>a</span>
+    <span>s</span>
+    <span>d</span>
+    <span>f</span>
+    <span>g</span>
+    <span>h</span>
+    <span>j</span>
+</div>
+<script>
+    //参考： http://www.zhangxinxu.com/wordpress/2017/06/html5-web-audio-api-js-ux-voice/
+    //    simple voice from C4: 261.63
+    var voiceList = [
+        261.63,
+        277.18,
+        293.67,
+        311.13,
+        329.63,
+        349.23,
+        369.99,
+        392.00,
+        415.31,
+        440.00,
+        466.16,
+        493.88
+    ]
+
+//    防止多次触发
+    var playing = [];
+
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    var audioCtx = new AudioContext();
+
+    function down(index) {
+        if (!playing[index]) {
+            playing[index] = true;
+            var clickKey = document.querySelectorAll('a')[index]
+            clickKey.setAttribute('class', clickKey.classList[0] + ' active');
+
+            if (this.gainNode) {
+                this.gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1);
+                this.oscillator.stop(audioCtx.currentTime + 1);
+            }
+            // 创建音调控制对象
+            this.oscillator = audioCtx.createOscillator();
+            // 创建音量控制对象
+            this.gainNode = audioCtx.createGain();
+            // 音调音量关联
+            this.oscillator.connect(this.gainNode);
+            // 音量和设备关联
+            this.gainNode.connect(audioCtx.destination);
+            // 音调类型指定为正弦波
+            this.oscillator.type = 'sine';
+            // 设置音调频率
+            this.oscillator.frequency.value = voiceList[index];
+            // 先把当前音量设为0
+            this.gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+            // 0.01秒时间内音量从刚刚的0变成1，线性变化
+            this.gainNode.gain.linearRampToValueAtTime(1, audioCtx.currentTime + 0.01);
+            // 声音走起
+            this.oscillator.start(audioCtx.currentTime);
+        }
+    }
+    function over(index) {
+        playing[index] = false;
+        var clickKey = document.querySelectorAll('a')[index]
+        clickKey.setAttribute('class', clickKey.classList[0]);
+        if (this.gainNode) {
+            this.gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1);
+            this.oscillator.stop(audioCtx.currentTime + 1);
+        }
+
+        this.oscillator = null;
+        this.gainNode = null;
+    }
+
+    document.onkeydown = function (event) {
+        var e = event || window.event;
+        var keyCode = e.keyCode || e.which;
+        switch (keyCode) {
+            case 65:
+                down(0);
+                break;
+            case 87:
+                down(1);
+                break;
+            case 83:
+                down(2);
+                break;
+            case 69:
+                down(3);
+                break;
+            case 68:
+                down(4);
+                break;
+            case 70:
+                down(5);
+                break;
+            case 84:
+                down(6);
+                break;
+            case 71:
+                down(7);
+                break;
+            case 89:
+                down(8);
+                break;
+            case 72:
+                down(9);
+                break;
+            case 85:
+                down(10);
+                break;
+            case 74:
+                down(11);
+                break;
+            default:
+                break;
+        }
+    }
+
+    document.onkeyup = function (event) {
+        var e = event || window.event;
+        var keyCode = e.keyCode || e.which;
+        switch (keyCode) {
+            case 65:
+                over(0);
+                break;
+            case 87:
+                over(1);
+                break;
+            case 83:
+                over(2);
+                break;
+            case 69:
+                over(3);
+                break;
+            case 68:
+                over(4);
+                break;
+            case 70:
+                over(5);
+                break;
+            case 84:
+                over(6);
+                break;
+            case 71:
+                over(7);
+                break;
+            case 89:
+                over(8);
+                break;
+            case 72:
+                over(9);
+                break;
+            case 85:
+                over(10);
+                break;
+            case 74:
+                over(11);
+                break;
+            default:
+                break;
+        }
+    }
+
+</script>
+</body>
+</html>
