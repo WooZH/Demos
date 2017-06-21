@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Can't Touch Butterfly</title>
+</head>
+
+<style>
+    body {
+        background-color: #3a6645;
+    }
+
+    .butterfly {
+        width: 500px;
+        height: 100px;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -50px;
+        margin-left: -250px;
+
+        transition: all 0.4s;
+    }
+
+    .left-b {
+        width: 105px;
+        height: 80px;
+
+        background: #d7c400;
+
+        position: absolute;
+        left: 140px;
+
+        border-radius: 35% 65% 35% 60%;
+
+    }
+
+    .left-s {
+        width: 65px;
+        height: 40px;
+
+        background: #d7c400;
+
+        position: absolute;
+        left: 180px;
+        top: 60px;
+
+        border-radius: 65% 35% 65% 35%;
+    }
+
+    .head {
+        width: 20px;
+        height: 20px;
+        background: #d7c400;
+        position: absolute;
+        left: 240px;
+        top: 0px;
+        border-radius: 50%;
+    }
+
+    .body {
+        width: 20px;
+        height: 80px;
+        background: #d7c400;
+        position: absolute;
+        left: 240px;
+        top: 20px;
+        border-radius: 40% 40% 80% 80%;
+
+    }
+
+    .right-b {
+        width: 105px;
+        height: 80px;
+
+        background: #d7c400;
+
+        position: absolute;
+        right: 140px;
+        border-radius: 65% 35% 60% 35%;
+
+    }
+
+    .right-s {
+        width: 65px;
+        height: 40px;
+
+        background: #d7c400;
+
+        position: absolute;
+        right: 180px;
+        top: 60px;
+
+        border-radius: 35% 65% 35% 60%;
+    }
+
+    .fly {
+        animation: fly 1s infinite ease-in-out;
+    }
+
+    .fly-r {
+        transform-origin: left;
+
+    }
+
+    .fly-l {
+        transform-origin: right;
+
+    }
+
+    @keyframes fly {
+        0% {
+            transform: rotateY(0deg);
+        }
+        50% {
+            transform: rotateY(60deg);
+
+        }
+        100% {
+            transform: rotateY(0deg);
+        }
+    }
+
+    .feeler-l {
+        width: 60px;
+        height: 53px;
+
+        position: absolute;
+        left: 205px;
+        top: -50px;
+
+    }
+
+    .feeler-r {
+        width: 60px;
+        height: 53px;
+
+        transform: rotateY(180deg);
+
+        position: absolute;
+        right: 205px;
+        top: -50px;
+
+    }
+
+    .ball {
+        width: 100px;
+        height: 100px;
+        background: #999999;
+    }
+
+</style>
+<body>
+
+<h1>Can't Touch Butterfly</h1>
+
+<div class="butterfly" onmousemove="touch()" id="butterfly">
+
+    <div class="feeler-l">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+             preserveAspectRatio="xMidYMid" width="50" height="53" viewBox="0 0 50 53">
+            <image
+                xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAABJCAMAAABIBIWBAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABv1BMVEUAAADWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgcAAAAXR9H2AAAAlHRSTlMAAQMGBAomSnKFlKWsQhsCDRXGg2RJOzlFfqBgNCu0XBgfY4mjdR6VCTJssWkPpjEhV69TLRFloT4UHHiQLoh9CFaZUhCNkhI3ojaAcMWRQxlBC4EOliMXsF7LJQxfnhOYFlibL85uBWKkmk53RtB0WSp/hj1oPweLnUxPgpxqtzpxn1F2jyjAMyI8k2e4R6caW8wsDOcb3wAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAHPSURBVEjHldZlUwJBGAfw5U4wUI4TQQULUMQgJGzwLErFRLBbEbuxuxXrC+s4vsDmv+/u5n7zxD27s4R8WjwCrjdA0XHA93xBfEJikjA5RcTEFEzMpgolaVJZekamXK7IYv4X2Tm5eR/BGKVKnV8g/gdoCmXaqEeqqLik9M/cdHrDlzwoY5nJ/IdIsnx/x1jLKyp/FVU/t6+6ptYWS9uic7PY65Sg4eobGkFCmpodTpDEudweNIy4pRUlRNlmRAnnLUMJ067vQI3I24mSrpruHtTIfL0o8Qek8GnQV6tFSXb/AEoGJeXAifO+uKHhETSMbVSGNmDMoaDRMOMTLEomp+C/SaunZ0DCBWd1aBiPz4ISZWiOAglveh4thiwswsU49QaU8O1LaGbMshreNB79Cjqa/hA8zWR1Dd1nZCEAF8PK19HMrPYNeGaGJPAAbJpEKNlyb6KEFw6jxZDebbgYsW8Hzmx3Dz7ONPsClFCJBzFc6z4vixCeZvoQvtKQIy9MWJMLzkx1jBKq80SDGp3vFCXc2Tk8mxeXVyhh3QcooRWha5DMZJzcoGE6bu/QyxYdDFeBhPjvzXCfIw+PKHEKn+Bt43p+QQm/QIUS6iXyCraLQ0X2HqKjAAAAAElFTkSuQmCC"
+                width="50" height="73"/>
+        </svg>
+    </div>
+    <div class="feeler-r">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+             preserveAspectRatio="xMidYMid" width="50" height="53" viewBox="0 0 50 53">
+            <image
+                xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAABJCAMAAABIBIWBAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABv1BMVEUAAADWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgfWtgcAAAAXR9H2AAAAlHRSTlMAAQMGBAomSnKFlKWsQhsCDRXGg2RJOzlFfqBgNCu0XBgfY4mjdR6VCTJssWkPpjEhV69TLRFloT4UHHiQLoh9CFaZUhCNkhI3ojaAcMWRQxlBC4EOliMXsF7LJQxfnhOYFlibL85uBWKkmk53RtB0WSp/hj1oPweLnUxPgpxqtzpxn1F2jyjAMyI8k2e4R6caW8wsDOcb3wAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAHPSURBVEjHldZlUwJBGAfw5U4wUI4TQQULUMQgJGzwLErFRLBbEbuxuxXrC+s4vsDmv+/u5n7zxD27s4R8WjwCrjdA0XHA93xBfEJikjA5RcTEFEzMpgolaVJZekamXK7IYv4X2Tm5eR/BGKVKnV8g/gdoCmXaqEeqqLik9M/cdHrDlzwoY5nJ/IdIsnx/x1jLKyp/FVU/t6+6ptYWS9uic7PY65Sg4eobGkFCmpodTpDEudweNIy4pRUlRNlmRAnnLUMJ067vQI3I24mSrpruHtTIfL0o8Qek8GnQV6tFSXb/AEoGJeXAifO+uKHhETSMbVSGNmDMoaDRMOMTLEomp+C/SaunZ0DCBWd1aBiPz4ISZWiOAglveh4thiwswsU49QaU8O1LaGbMshreNB79Cjqa/hA8zWR1Dd1nZCEAF8PK19HMrPYNeGaGJPAAbJpEKNlyb6KEFw6jxZDebbgYsW8Hzmx3Dz7ONPsClFCJBzFc6z4vixCeZvoQvtKQIy9MWJMLzkx1jBKq80SDGp3vFCXc2Tk8mxeXVyhh3QcooRWha5DMZJzcoGE6bu/QyxYdDFeBhPjvzXCfIw+PKHEKn+Bt43p+QQm/QIUS6iXyCraLQ0X2HqKjAAAAAElFTkSuQmCC"
+                width="50" height="73"/>
+        </svg>
+    </div>
+    <div class="left-b fly fly-l">
+    </div>
+    <div class="left-s fly fly-l">
+    </div>
+    <div class="head"></div>
+    <div class="body"></div>
+    <div class="right-b fly fly-r ">
+    </div>
+    <div class="right-s fly fly-r ">
+    </div>
+</div>
+
+
+<script>
+    var time = false
+    var w = document.body.scrollWidth;
+    var h = document.body.scrollHeight;
+    console.log(w + '|' + h)
+
+    function touch() {
+        if (!time) {
+            var t = Math.random() * h
+
+            if (t > (h - 120)) {
+                t = t - 120
+            } else if (t < 120) {
+                t = t + 120
+            }
+            var l = Math.random() * w
+
+            if (l > (w - 600)) {
+                l = l - 600
+            }
+            else if (l < 500) {
+                l = l + 500
+            }
+            document.getElementById('butterfly').style.top = t + 'px';
+            document.getElementById('butterfly').style.left = l + 'px';
+            time = true
+            setTimeout(function () {
+
+                time = false
+            }, 500)
+        }
+
+    }
+</script>
+
+</body>
+</html>
