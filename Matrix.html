@@ -46,16 +46,18 @@
 
         for (var i = 0; i < columns; i++) {
             if (drop[i].length === 0) drop[i].push(0);
-            /*init or reset*/
+            //init or reset
             var len = drop[i].length;
-            if (len <= 2 && drop[i][len - 1] * font_size > (matrix.height / 4) && Math.random() > 0.85) {/*add new node*/
+            if (len <= 2 && drop[i][len - 1] * font_size > (matrix.height / 4) && Math.random() > 0.85) {
+            //add new node
                 drop[i].push(0);
-            } else if (drop[i][0] * font_size > (matrix.height)) {/*remove useless node*/
+            } else if (drop[i][0] * font_size > (matrix.height)) {
+            //remove useless node
                 drop[i].shift();
             }
             len = drop[i].length;
             for (var j = 0; j < len; j++) {
-
+            //add node text 0-Z
                 context.fillText(String.fromCharCode(48 + Math.ceil(Math.random() * 42)), i * font_size, drop[i][j] * font_size);
 
                 drop[i][j]++;
