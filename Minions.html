@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Minions-小黄人</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 </head>
 
 <style>
@@ -19,12 +21,13 @@
 
     .main-box {
         text-align: center;
+
+        -webkit-overflow-scrolling: touch;
     }
 
     .box {
         font-size: 0;
         display: inline-block;
-
         margin: 10px;
 
         width: 200px;
@@ -32,7 +35,7 @@
 
         background: #e5c147;
         clip-path: polygon(0 0, 100% 100px, 100% 100%, 0 calc(100% - 100px));
-        transition: all 0.5s;
+        transition: all 0.5s cubic-bezier(0, 0.59, 0.35, 2);
 
         opacity: 0.8;
 
@@ -43,8 +46,10 @@
         opacity: 1;
         filter: grayscale(0%);
 
+
+
         clip-path: polygon(0 0, 100% 0,100% 100%,0 100%);
-        transition: all 0.5s;
+        transition: all 0.5s cubic-bezier(0.54, -1.16, 1, 0.32);
 
         position: relative;
         z-index: 999;
@@ -83,7 +88,7 @@
 
     .info-box {
         width: 640px;
-
+        max-width: 80%;
         margin: 40px auto;
         padding: 10px;
 
@@ -92,7 +97,6 @@
         box-shadow: 0 0 0 2px #F7D04D, 0 0 0 4px #fff;
 
         opacity: 0;
-        transform: translateY(-10px);
         transition: all 0.3s;
 
         color: #363636;
@@ -106,6 +110,22 @@
     .info-box .intro{
         font-size: 14px;
     }
+
+    .m-info-box{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        max-width: calc(100% - 24px);
+        margin: 0;
+
+        background: #ffffff;
+        z-index: 1000;
+    }
+
+    .m-main-box{
+        margin-bottom: 140px;
+    }
 </style>
 <body>
 
@@ -113,7 +133,7 @@
     Minions
 </h1>
 
-<div class="main-box">
+<div class="main-box" id="main">
     <div class="box" onmouseenter="show('k')" onmouseout="hide()">
         <div class="k"></div>
     </div>
@@ -165,6 +185,32 @@
         info_name.innerText = name;
         info_intro.innerText = intro;
     }
+
+    function isPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = [
+            "Android", "iPhone",
+             "Windows Phone",
+            "iPad", "iPod"
+        ];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    if(!isPC()){
+        infoBox.setAttribute('class','info-box m-info-box');
+
+        var m = document.querySelector('#main')
+        m.setAttribute('class','main-box m-main-box')
+    }
+
+    console.log(isPC())
 </script>
 
 </body>
